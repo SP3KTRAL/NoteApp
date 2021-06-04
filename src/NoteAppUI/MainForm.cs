@@ -143,8 +143,12 @@ namespace NoteAppUI
 
         private void removeNoteButton_Click(object sender, EventArgs e)
         {
-            RemoveNote(titleNoteListBox.SelectedIndex);
-            SelectFirstItem();
+            Check check = new Check();
+            if (check.ShowDialog() == DialogResult.OK)
+            {
+                RemoveNote(titleNoteListBox.SelectedIndex);
+                SelectFirstItem();
+            }
             Save();
         }
 

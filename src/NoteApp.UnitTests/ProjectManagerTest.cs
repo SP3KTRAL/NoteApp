@@ -109,7 +109,11 @@ namespace NoteApp.UnitTests
         {
             //Setup
             var savingProject = GetCorrectProject();
-            Directory.Delete(@"Output",true);
+            DirectoryInfo directoryInfo = new DirectoryInfo(@"Output");
+            if (directoryInfo.Exists)
+            {
+                Directory.Delete(@"Output", true);
+            }
 
             //Act
             ProjectManager.Save(savingProject, OutputProjectFilename);
