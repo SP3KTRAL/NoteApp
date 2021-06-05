@@ -6,7 +6,7 @@ namespace NoteApp.UnitTests
     public class ProjectTest
     {
         [Test]
-        public void TestProject_CorrectValue()
+        public void TestProject_CorrectValue_ReturnCorrectValue()
         {
             //Setup
             var project = new Project();

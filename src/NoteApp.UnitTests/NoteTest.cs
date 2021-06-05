@@ -7,7 +7,7 @@ namespace NoteApp.UnitTests
     public class NoteTest
     {
         [Test]
-        public void TestTitleGet_CorrectValue()
+        public void TestTitleGet_CorrectValue_ReturnsCorrectValue()
         {
             //Setup
             var note = new Note();
