@@ -32,7 +32,7 @@ namespace NoteApp.UnitTests
             return correctProject;
         }
 
-        private void Comparison(Project expectedProject, Project actualProject)
+        private void ComparisonAssert(Project expectedProject, Project actualProject)
         {
             Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
 
@@ -48,8 +48,8 @@ namespace NoteApp.UnitTests
             });
         }
 
-        [TestCase(Description = "Позитивный тест проджект")]
-        public void LoadProject_SaveCorrectData_FileSavedCorrectly()
+        [TestCase]
+        public void LoadProject_LoadCorrectData_FileLoadCorrectly()
         {
             //Setup
             var expectedProject = GetCorrectProject();
@@ -58,10 +58,10 @@ namespace NoteApp.UnitTests
             var actualProject = ProjectManager.Load(CorrectedProjectFilename);
 
             //Assert
-            Comparison(expectedProject, actualProject);
+            ComparisonAssert(expectedProject, actualProject);
         }
 
-        [TestCase(Description = "Повреждённый файл")]
+        [TestCase]
         public void LoadProject_LoadCorruptedData_FileLoadEmpty()
         {
             //Setyp
@@ -71,23 +71,30 @@ namespace NoteApp.UnitTests
             var actualProject = ProjectManager.Load(@"TestData\corruptedprojectfile.json");
 
             //Assert
-            Comparison(expectedProject, actualProject);
+            ComparisonAssert(expectedProject, actualProject);
         }
 
-        [TestCase(Description = "Пустой файл")]
+        [TestCase]
         public void LoadProject_LoadEmptyData_FileLoadEmpty()
         {
             //Setup
             var expectedProject = new Project();
 
+            var fileName = @"TestData\emptyprojectfile.json";
+
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
             //Act
-            var actualProject = ProjectManager.Load(@"TestData\emptyprojectfile.json");
+            var actualProject = ProjectManager.Load(fileName);
 
             //Assert
-            Comparison(expectedProject, actualProject);
+            ComparisonAssert(expectedProject, actualProject);
         }
 
-        [TestCase(Description = "Загрузка файла")]
+        [TestCase]
         public void SaveToFile_SaveCorrectedData_FileSaveCorrectly()
         {
             //Setup

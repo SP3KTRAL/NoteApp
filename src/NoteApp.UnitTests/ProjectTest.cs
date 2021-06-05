@@ -5,20 +5,17 @@ namespace NoteApp.UnitTests
     [TestFixture]
     public class ProjectTest
     {
-        [Test(Description = "Позитивный тест Project")]
+        [Test]
         public void TestProject_CorrectValue()
         {
             //Setup
             var project = new Project();
-            var note = new Note();
-            note.Title = "Домашка";
-            note.NoteCategory = NoteCategory.Documents;
-            note.NoteText = "Параграф №16, задачи №16.2, 16.3(а,б).";
-            project.Notes.Add(note);
+
             //Act
-            var actual = project;
+            var actual = 0;
+
             //Assert
-            Assert.AreEqual(project, actual, "Project возвращает или заполняет неправильный проект");
+            Assert.AreEqual(project.Notes.Count, actual);
         }
     }
 }
