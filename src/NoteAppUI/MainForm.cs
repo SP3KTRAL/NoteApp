@@ -69,13 +69,18 @@ namespace NoteAppUI
         /// <param name="note">Изменяемая заметка</param>
         private void EditNote(Note note)
         {
-            NoteForm noteForm = new NoteForm();
-            noteForm.Note = note;
+            var index = titleNoteListBox.SelectedIndex;
 
-            if (noteForm.ShowDialog() == DialogResult.OK)
+            if (CheckSelectedNote(index))
             {
-                RemoveNote(titleNoteListBox.SelectedIndex);
-                AddNote(noteForm.Note);
+                NoteForm noteForm = new NoteForm();
+                noteForm.Note = note;
+
+                if (noteForm.ShowDialog() == DialogResult.OK)
+                {
+                    RemoveNote(titleNoteListBox.SelectedIndex);
+                    AddNote(noteForm.Note);
+                }
             }
 
             SelectFirstItem();
@@ -112,14 +117,16 @@ namespace NoteAppUI
         /// <param name="note">Добавляемая заметка</param>
         private void AddNote(Note note)
         {
+            var selectedItem = noteCategoryComboBox.SelectedItem;
+
             _project.Notes.Insert(0, note);
 
-            if (noteCategoryComboBox.SelectedItem.ToString() == "All")
+            if (selectedItem.ToString() == "All")
             {
                 titleNoteListBox.Items.Insert(0, note.Title);
                 _displayedNotes.Insert(0, note);
             }
-            else if ((NoteCategory)noteCategoryComboBox.SelectedItem == note.NoteCategory)
+            else if ((NoteCategory)selectedItem == note.NoteCategory)
             {
                 titleNoteListBox.Items.Insert(0, note.Title);
                 _displayedNotes.Insert(0, note);
@@ -129,22 +136,26 @@ namespace NoteAppUI
         /// <summary>
         /// Проверка, выбрана ли заметка для редактирования
         /// </summary>
-        private void CheckNote()
+        private bool CheckSelectedNote(int index)
         {
-            if (titleNoteListBox.SelectedIndex != -1)
+            if (index != -1)
             {
-                EditNote(_displayedNotes[titleNoteListBox.SelectedIndex]);
+                return true;
             }
-            else
-            {
-                MessageBox.Show(@"Select a note to edit!");
-            }
+
+            MessageBox.Show(@"Select a note to edit!");
+            return false;
         }
 
         private void removeNoteButton_Click(object sender, EventArgs e)
         {
-            Check check = new Check();
-            if (check.ShowDialog() == DialogResult.OK)
+            var messageBox = MessageBox.Show(
+                "Are you sure you want to delete the note?",
+                "",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.None);
+
+            if (messageBox == DialogResult.OK)
             {
                 RemoveNote(titleNoteListBox.SelectedIndex);
                 SelectFirstItem();
@@ -154,7 +165,9 @@ namespace NoteAppUI
 
         private void editNoteButton_Click(object sender, EventArgs e)
         {
-            CheckNote();
+            var index = titleNoteListBox.SelectedIndex;
+
+            EditNote(_displayedNotes[index]);
             Save();
         }
 
@@ -166,17 +179,19 @@ namespace NoteAppUI
 
         private void noteCategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var selectedItem = noteCategoryComboBox.SelectedItem;
+
             titleNoteListBox.Items.Clear();
             _displayedNotes.Clear();
 
             foreach (var note in _project.Notes)
             {
-                if (noteCategoryComboBox.SelectedItem.ToString() == "All")
+                if (selectedItem.ToString() == "All")
                 {
                     titleNoteListBox.Items.Add(note.Title);
                     _displayedNotes.Add(note);
                 }
-                else if (note.NoteCategory == (NoteCategory) noteCategoryComboBox.SelectedItem)
+                else if (note.NoteCategory == (NoteCategory)selectedItem)
                 {
                     titleNoteListBox.Items.Add(note.Title);
                     _displayedNotes.Add(note);
@@ -221,7 +236,9 @@ namespace NoteAppUI
 
         private void editNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckNote();
+            var index = titleNoteListBox.SelectedIndex;
+
+            EditNote(_displayedNotes[index]);
             Save();
         }
 
