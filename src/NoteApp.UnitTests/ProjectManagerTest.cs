@@ -32,16 +32,8 @@ namespace NoteApp.UnitTests
             return correctProject;
         }
 
-        [TestCase(Description = "Позитивный тест проджект")]
-        public void LoadProject_SaveCorrectData_FileSavedCorrectly()
+        private void Comparison(Project expectedProject, Project actualProject)
         {
-            //Setup
-            var expectedProject = GetCorrectProject();
-
-            //Act
-            var actualProject = ProjectManager.Load(CorrectedProjectFilename);
-
-            //Assert
             Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
 
             Assert.Multiple(() =>
@@ -54,6 +46,19 @@ namespace NoteApp.UnitTests
                     Assert.AreEqual(expected, actual);
                 }
             });
+        }
+
+        [TestCase(Description = "Позитивный тест проджект")]
+        public void LoadProject_SaveCorrectData_FileSavedCorrectly()
+        {
+            //Setup
+            var expectedProject = GetCorrectProject();
+
+            //Act
+            var actualProject = ProjectManager.Load(CorrectedProjectFilename);
+
+            //Assert
+            Comparison(expectedProject, actualProject);
         }
 
         [TestCase(Description = "Повреждённый файл")]
@@ -66,18 +71,7 @@ namespace NoteApp.UnitTests
             var actualProject = ProjectManager.Load(@"TestData\corruptedprojectfile.json");
 
             //Assert
-            Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
-
-            Assert.Multiple(() =>
-            {
-                for (int i = 0; i < expectedProject.Notes.Count; i++)
-                {
-                    var expected = expectedProject.Notes[i];
-                    var actual = actualProject.Notes[i];
-
-                    Assert.AreEqual(expected, actual);
-                }
-            });
+            Comparison(expectedProject, actualProject);
         }
 
         [TestCase(Description = "Пустой файл")]
@@ -90,18 +84,7 @@ namespace NoteApp.UnitTests
             var actualProject = ProjectManager.Load(@"TestData\emptyprojectfile.json");
 
             //Assert
-            Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
-
-            Assert.Multiple(() =>
-            {
-                for (int i = 0; i < expectedProject.Notes.Count; i++)
-                {
-                    var expected = expectedProject.Notes[i];
-                    var actual = actualProject.Notes[i];
-
-                    Assert.AreEqual(expected, actual);
-                }
-            });
+            Comparison(expectedProject, actualProject);
         }
 
         [TestCase(Description = "Загрузка файла")]
