@@ -5,7 +5,7 @@
 #define Version "1.0.0"
 
 [Setup]
-AppId={{}
+AppId={{CDB6DAB6-3C70-46E8-8CD3-B0983E2C0642}}
 AppName={#Name}
 AppVersion={#Version}
 AppPublisherURL={#URL}
@@ -29,7 +29,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: "{cm:AdditionalIcons}" 
 
 [Files]
-Source: "Release\*.exe"; DestDir: "{app}"
+Source: "Release\NoteAppUI.exe"; DestDir: "{app}"
 Source: "Release\*.dll"; DestDir: "{app}"
 Source: "..\icon\NoteApp.ico"; DestDir: "{app}"
 
