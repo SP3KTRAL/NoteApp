@@ -100,10 +100,10 @@ namespace NoteAppUI
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(63, 152);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(155, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(202, 13);
             this.linkLabel1.TabIndex = 8;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "https://github.com/SP3KTRAL";
+            this.linkLabel1.Text = "https://github.com/SP3KTRAL/NoteApp";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // emLinkLabel
@@ -116,7 +116,7 @@ namespace NoteAppUI
             this.emLinkLabel.TabStop = true;
             this.emLinkLabel.Text = "egorbrlov16@mail.ru";
             // 
-            // About
+            // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -130,7 +130,7 @@ namespace NoteAppUI
             this.Controls.Add(this.verLabel);
             this.Controls.Add(this.noteAppLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "About";
+            this.Name = "AboutForm";
             this.Text = "About";
             this.ResumeLayout(false);
             this.PerformLayout();

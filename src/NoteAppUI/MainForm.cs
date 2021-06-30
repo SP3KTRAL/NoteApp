@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using NoteApp;
 using System.Windows.Forms;
@@ -118,7 +119,7 @@ namespace NoteAppUI
         private void AddNote(Note note)
         {
             var selectedItem = noteCategoryComboBox.SelectedItem;
-
+            
             _project.Notes.Insert(0, note);
 
             if (selectedItem.ToString() == "All")
